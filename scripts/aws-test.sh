@@ -1,6 +1,6 @@
-$AWS_ACCESS_KEY_ID=$1
-$AWS_SECRET_ACCESS_KEY=$2
-$AWS_BUCKET=$3
+AWS_ACCESS_KEY_ID=$1
+AWS_SECRET_ACCESS_KEY=$2
+AWS_BUCKET=$3
 
 #install aws-cli
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.0.30.zip" -o "awscliv2.zip"
