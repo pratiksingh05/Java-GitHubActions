@@ -5,7 +5,7 @@ name: CI
 # Controls when the workflow will run
 on:
   schedule:
-    - cron:  '*/2 * * * *'    # At every 2nd minute
+    - cron:  '50 11 * * *'    # At every 2nd minute
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
