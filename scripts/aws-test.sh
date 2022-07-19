@@ -21,5 +21,6 @@ aws configure set default.region us-west-1
 aws s3 ls
 
 echo "uploading... file to s3"
-aws s3 cp ./upload-file/test.txt s3://$AWS_BUCKET/Unsaved/
+#aws s3 cp ./upload-file/test.txt s3://$AWS_BUCKET/Unsaved/
+aws s3 cp ./lambda.zip s3://$AWS_BUCKET/Unsaved/
 echo "uploaded file to s3"
