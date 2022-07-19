@@ -4,8 +4,8 @@ name: CI
 
 # Controls when the workflow will run
 on:
-  schedule:
-    - cron:  '*/5 * * * *'    # At every 2nd minute
+  # schedule:
+  #   - cron:  '*/5 * * * *'    # At every 2nd minute
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
@@ -35,13 +35,23 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+  zip-file:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Create folder
+      run: |
+        mkdir release
+        ls -lrt
           
   S3-upload:
-    needs: build
+    needs: zip-file
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
     - name: Release to S3
       run: ././scripts/aws-test.sh ${{secrets.AWS_ACCESS_KEY}} ${{secrets.AWS_SECRET_ACCESS}} ${{secrets.AWS_BUCKET}}
-         
