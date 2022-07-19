@@ -45,10 +45,7 @@ jobs:
     - name: Create folder
       run: |
         mkdir release
-<<<<<<< HEAD
-=======
         zip -r lambda.zip ./python
->>>>>>> 4b12cdcf7b78abc304dc1d4fe73b93e22f0f5920
         ls -lrt
           
   S3-upload:
