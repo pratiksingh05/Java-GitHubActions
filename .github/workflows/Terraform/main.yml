@@ -36,38 +36,38 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
-  zip-file:
-    needs: build
-    runs-on: ubuntu-latest
+  # zip-file:
+  #   needs: build
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v3
-    - name: Create folder
-      run: |
-        mkdir release
-        zip -r lambda.zip ./python
-        ls -lrt
-    - name: Release to S3
-      run: ././scripts/aws-test.sh ${{secrets.AWS_ACCESS_KEY}} ${{secrets.AWS_SECRET_ACCESS}} ${{secrets.AWS_BUCKET}}
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: Create folder
+  #     run: |
+  #       mkdir release
+  #       zip -r lambda.zip ./python
+  #       ls -lrt
+  #   - name: Release to S3
+  #     run: ./././scripts/aws-test.sh ${{secrets.AWS_ACCESS_KEY}} ${{secrets.AWS_SECRET_ACCESS}} ${{secrets.AWS_BUCKET}}
 
-  S3-upload:
-    needs: zip-file
-    runs-on: ubuntu-latest
+  # S3-upload:
+  #   needs: zip-file
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v3
+  #   steps:
+  #   - uses: actions/checkout@v3
     # - name: Release to S3
     #   run: ././scripts/aws-test.sh ${{secrets.AWS_ACCESS_KEY}} ${{secrets.AWS_SECRET_ACCESS}} ${{secrets.AWS_BUCKET}}
 
   terraform-build:
-    needs: zip-file
+    #needs: S3-upload
     name: 'Terraform'
     runs-on: ubuntu-latest
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
-    defaults:
-      run:
-        shell: bash
+    #defaults:
+      # run:
+      #   shell: bash
 
     steps:
     # Checkout the repository to the GitHub Actions runner
