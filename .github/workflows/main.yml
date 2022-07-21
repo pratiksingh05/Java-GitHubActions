@@ -48,7 +48,7 @@ jobs:
   #       zip -r lambda.zip ./python
   #       ls -lrt
   #   - name: Release to S3
-  #     run: ./././scripts/aws-test.sh ${{secrets.AWS_ACCESS_KEY}} ${{secrets.AWS_SECRET_ACCESS}} ${{secrets.AWS_BUCKET}}
+  #    # run: ./././scripts/aws-test.sh ${{secrets.AWS_ACCESS_KEY}} ${{secrets.AWS_SECRET_ACCESS}} ${{secrets.AWS_BUCKET}}
 
   # S3-upload:
   #   needs: zip-file
