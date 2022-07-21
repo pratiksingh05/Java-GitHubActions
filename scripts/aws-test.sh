@@ -17,7 +17,7 @@ aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
 aws configure set default.region us-west-1
 
 echo "uploading... file to s3"
+ls -lrt
 #aws s3 cp ./upload-file/test.txt s3://$AWS_BUCKET/Unsaved/
 aws s3 cp ./lambda.zip s3://$AWS_BUCKET/Unsaved/
-echo "uploaded file to s3"
 echo "uploaded file to s3"
