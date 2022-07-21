@@ -4,6 +4,6 @@ terraform {
    key            = "state/terraform.tfstate"
    region         = "us-east-1"
    encrypt        = true
-   dynamodb_table = "terraform-state"
+   dynamodb_table = "601356012742-alu-geneos-dev-tfstate"
  }
 }
