@@ -39,25 +39,25 @@ jobs:
   # zip-file:
   #   needs: build
   #   runs-on: ubuntu-latest
-
-  #   steps:
-  #   - uses: actions/checkout@v3
-  #   - name: Create folder
-  #     run: |
-  #       mkdir release
-  #       zip -r lambda.zip ./python
-  #       ls -lrt
-  #   - name: Release to S3
-  #    # run: ./././scripts/aws-test.sh ${{secrets.AWS_ACCESS_KEY}} ${{secrets.AWS_SECRET_ACCESS}} ${{secrets.AWS_BUCKET}}
+  check:
+    steps:
+    - uses: actions/checkout@v3
+    - name: Create zip folder
+      run: |
+        mkdir release
+        zip -r lambda.zip ./python
+        ls -lrt
+    - name: upload zip file to S3
+      run: ./././scripts/aws-test.sh ${{secrets.AWS_ACCESS_KEY}} ${{secrets.AWS_SECRET_ACCESS}} ${{secrets.AWS_BUCKET}}
 
   # S3-upload:
-  #   needs: zip-file
+  #   # needs: zip-file
   #   runs-on: ubuntu-latest
 
   #   steps:
   #   - uses: actions/checkout@v3
-    # - name: Release to S3
-    #   run: ././scripts/aws-test.sh ${{secrets.AWS_ACCESS_KEY}} ${{secrets.AWS_SECRET_ACCESS}} ${{secrets.AWS_BUCKET}}
+  #   - name: Release to S3
+  #     run: ././scripts/aws-test.sh ${{secrets.AWS_ACCESS_KEY}} ${{secrets.AWS_SECRET_ACCESS}} ${{secrets.AWS_BUCKET}}
 
   terraform-build:
     #needs: S3-upload
