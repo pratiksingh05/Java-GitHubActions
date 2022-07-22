@@ -37,51 +37,39 @@ jobs:
       #     echo test, and deploy your project.
 
   # zip-file:
-  #   needs: build
   #   runs-on: ubuntu-latest
-  check:
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: Create zip folder
+  #     run: |
+  #       mkdir release
+  #       zip -r lambda.zip ./python
+  #       ls -lrt
+  #   - name: upload zip file to S3
+  #     run: ./././scripts/aws-test.sh ${{secrets.AWS_ACCESS_KEY}} ${{secrets.AWS_SECRET_ACCESS}} ${{secrets.AWS_BUCKET}} 
+
+  terraform:
+    name: 'Terraform'
     runs-on: ubuntu-latest
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ././terraform
+
     steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
     - uses: actions/checkout@v3
-    - name: Create zip folder
       run: |
-        mkdir release
-        zip -r lambda.zip ./python
         ls -lrt
-    - name: upload zip file to S3
-      run: ./././scripts/aws-test.sh ${{secrets.AWS_ACCESS_KEY}} ${{secrets.AWS_SECRET_ACCESS}} ${{secrets.AWS_BUCKET}}
 
-  # S3-upload:
-  #   # needs: zip-file
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #   - uses: actions/checkout@v3
-  #   - name: Release to S3
-  #     run: ././scripts/aws-test.sh ${{secrets.AWS_ACCESS_KEY}} ${{secrets.AWS_SECRET_ACCESS}} ${{secrets.AWS_BUCKET}}
-
-  # terraform-build:
-  #   #needs: S3-upload
-  #   name: 'Terraform'
-  #   runs-on: ubuntu-latest
-
-  #   # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
-  #   defaults:
-  #     run:
-  #       shell: bash
-  #       working-directory: ././terraform
-
-  #   steps:
-  #   # Checkout the repository to the GitHub Actions runner
-  #   - name: Checkout
-  #   - uses: actions/checkout@v3
-  #     run: ls -lrt
-
-  #   # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-  #   - name: Setup Terraform
-  #   - uses: hashicorp/setup-terraform@v1
-  #     with:
-  #       terraform_version: 0.12.24
+    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+    - name: Setup Terraform
+    - uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 0.12.24
 
   #   # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
   #   - name: Terraform Init
